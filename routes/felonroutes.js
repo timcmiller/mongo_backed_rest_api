@@ -14,7 +14,6 @@ felonRouter.get('/felons', function(req, res) {
 });
 
 felonRouter.post('/felons', bodyParser.json(), function(req, res) {
-  console.log(req.body);
   var newFelon = new Felon(req.body);
 
   newFelon.save(function(err, data) {
@@ -24,12 +23,22 @@ felonRouter.post('/felons', bodyParser.json(), function(req, res) {
   });
 });
 
-// felonRouter.name('/felons/:name', bodyParser.json(), function(req, res) {
+felonRouter.put('/felons', bodyParser.json(), function(req, res) {
 
-//   Felon.update({name: req.params.name}, req.body, function(err) {
-//     if (err) {console.log(err); throw err;}
+  var felonData = req.body;
+  delete req.body._id;
+  Felon.update({_id: felonData._id}, felonData, function(err) {
+    if(err){console.log(err); throw err;}
 
-//     res.json({msg: 'BUSTED!'});
-//   });
-// });
+    res.send('updated!');
+  });
+});
 
+felonRouter.delete('/felons/:id', function(req, res) {
+
+  Felon.remove({_id: req.params._id}, function(err) {
+    if(err){console.log(err); throw err;}
+
+    res.send('deleted!');
+  });
+});

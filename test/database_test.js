@@ -16,44 +16,47 @@ describe('the routes', function() {
       done();
     });
   });
-  describe('the officer routes', function() {
 
-    it('should be able to create an officer', function(done) {
-      var testOfficer = {name: 'james bond'};
+  describe('the chuck route', function() {
+
+    it('should respond with a random chuck fact in the form of a string', function(done) {
+
       chai.request('localhost:3000')
-        .post('/good/officers')
-        .send(testOfficer)
+        .get('/chuck')
         .end(function(err, res) {
           expect(err).to.eql(null);
-          expect(res.body).to.have.property('_id');
-          expect(res.body.name).to.eql('james bond');
-          expect(res.body.years).to.eql(0);
-          expect(res.body.criminalsBusted).to.eql(0);
+          expect(typeof res.text).to.eql('string');
           done();
       });
     });
   });
 
-  describe('the felon routes', function() {
+  describe('the busted route', function() {
 
-    it('should be able to create felons', function() {
-      var testFelon = {name: 'odd job', crime: 'bank robber'};
+    beforeEach(function(done) {
+      (new Officer({name: 'test test'})).save(function(err, data) {
+          expect(err).to.eql(null);
+          this.officer = data;
+          done();
+        }.bind(this));
+      });
+    beforeEach(function(done) {
+      (new Felon({name: 'test test'})).save(function(err, data) {
+          expect(err).to.eql(null);
+          this.felon = data;
+          done();
+        }.bind(this));
+      });
+
+    it('should respond with a string of the outcome', function(done) {
+
       chai.request('localhost:3000')
-        .post('/bad/felons')
-        .send(testFelon)
+        .get('/busted')
         .end(function(err, res) {
           expect(err).to.eql(null);
-          expect(res.body).to.have.property('_id');
-          expect(res.body.name).to.eql('odd job');
-          expect(res.body.crime).to.eql('bank robber');
-          expect(res.body.inJail).to.eql(false);
-      });
+          expect(typeof res.text).to.eql('string');
+          done();
+        });
     });
   });
 });
-
-
-
-
-
-
