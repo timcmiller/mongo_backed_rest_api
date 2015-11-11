@@ -4,8 +4,6 @@ var officerRouter = require(__dirname + '/routes/officerroutes.js');
 var felonRouter = require(__dirname + '/routes/felonroutes.js');
 var bustedRouter = require(__dirname + '/routes/bustedroutes.js');
 var chuckRouter = require(__dirname + '/routes/chuckroutes.js');
-// var Officer = require(__dirname + '/models/officers');
-// var Felon = require(__dirname + '/models/felons');
 var app = express();
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/officer_dev');
