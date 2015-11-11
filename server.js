@@ -1,8 +1,14 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var app = express();
-var felonRouter = require(__dirname + '/routes/felon_routes');
-var officerRouter = require(__dirname + '/router/officer_routes');
 
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/officer_dev');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/superhero_dev');
+
+
+app.use('/superhero', superheroRouter);
+
+
+app.listen(process.env.PORT || 3000, function() {
+  console.log('SUPERHERO\'S HERE TO SAVE THE DAY');
+});
 

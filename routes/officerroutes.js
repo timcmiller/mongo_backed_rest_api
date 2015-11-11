@@ -1,23 +1,22 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var Officer = require(__dirname + '/../models/officers');
+var Superhero = require(__dirname + '/../models/superheros');
 
-var officerRouter = module.exports = exports = express.Router();
-process.env.MONGOLAB_URI = 'mongodb://localhost/officer_dev';
+var superheroRouter = module.exports = exports = express.Router();
 
 
-officerRouter.get('/officers', function(req, res) {
-  Officer.find({}, function(err, data) {
+superheroRouter.get('/superheros', function(req, res) {
+  Superhero.find({}, function(err, data) {
     if(err) throw err;
 
     res.json(data);
   });
 });
 
-officerRouter.post('/officers', bodyParser.json(), function(req, res) {
-  var newOfficer = new Officer(req.body);
+superheroRouter.post('/superheros', bodyParser.json(), function(req, res) {
+  var newSuperhero = new Superhero(req.body);
 
-  newOfficer.save(function(err, data) {
+  newSuperhero.save(function(err, data) {
     if (err) throw err;
 
     res.json(data);
