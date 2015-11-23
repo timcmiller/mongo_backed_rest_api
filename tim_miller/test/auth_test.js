@@ -29,8 +29,8 @@ describe('the auth routes', function() {
   });
   describe('routes that need a user', function() {
 
-    beforeEach(function(done) {
-      this.user = {username: 'test', password: 'testing123'};
+    before(function(done) {
+      this.user = {username: 'uniqueUser', password: 'testing123'};
       chai.request('localhost:3000')
         .post('/signup')
         .send(this.user)
@@ -52,6 +52,17 @@ describe('the auth routes', function() {
           expect(res.text).to.have.property('token');
           done();
       }.bind(this));
+    });
+
+    it('should check for a unique username', function(done) {
+      chai.request('localhost:3000')
+        .post('/signup')
+        .send(this.user)
+        .end(function(err, res) {
+          expect(err).to.eql(null);
+          expect(res.error.text).to.eql('{"msg":"Server Error"}');
+          done();
+      });
     });
   });
 });
