@@ -12,14 +12,22 @@ var userSchema = new mongoose.Schema({
   }
 });
 
-userSchema.methods.hashPassword = function(password) {
-  console.log(password);
-  var hash = this.auth.basic.password = bcrypt.hashSync(password, 8);
-  return hash;
+userSchema.methods.hashPassword = function(password, callback) {
+  bcrypt.genSalt(8, function(err, salt) {
+    if (err) console.log(err);
+    bcrypt.hash(password, salt, function(err, hash) {
+      if (err) console.log(err);
+      return callback(err, hash);
+    });
+  });
 };
 
-userSchema.methods.checkPassword = function(password) {
-  return bcrypt.compareSync(password, this.auth.basic.password);
+userSchema.methods.checkPassword = function(password, hash) {
+  bcrypt.compare(password, hash, function(err, res) {
+    if (err) console.log(err);
+
+    return res;
+  });
 };
 
 userSchema.methods.generateToken = function(callback) {
