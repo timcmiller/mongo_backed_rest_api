@@ -11,11 +11,11 @@ officerRouter.get('/officers', function(req, res) {
   Officer.find({}, function(err, data) {
     if(err) return error.default(err, res);
 
-    res.json(data);
+    res.send(data);
   });
 });
 
-officerRouter.post('/officers', bodyParser.json(), eatAuth, function(req, res) {
+officerRouter.post('/officers', bodyParser.json(), /*eatAuth,*/ function(req, res) {
   var newOfficer = new Officer(req.body);
 
   newOfficer.save(function(err, data) {
@@ -25,7 +25,7 @@ officerRouter.post('/officers', bodyParser.json(), eatAuth, function(req, res) {
   });
 });
 
-officerRouter.put('/officers', bodyParser.json(), eatAuth, function(req, res) {
+officerRouter.put('/officers', bodyParser.json(), /*eatAuth,*/ function(req, res) {
 
   var officerData = req.body;
   delete officerData._id;
@@ -36,7 +36,7 @@ officerRouter.put('/officers', bodyParser.json(), eatAuth, function(req, res) {
   });
 });
 
-officerRouter.delete('/officers/:id',bodyParser.json(), eatAuth, function(req, res) {
+officerRouter.delete('/officers/:id',bodyParser.json(), /*eatAuth,*/ function(req, res) {
 
   Officer.remove({_id: req.params._id}, function(err) {
     if(err) return error.default(err, res);
