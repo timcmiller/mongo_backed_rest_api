@@ -1,11 +1,13 @@
 module.exports = function(app) {
   app.controller('BustedController', ['$scope', '$http', function($scope, $http) {
-    $scope.busted = '';
 
-    $scope.get = function() {
+    $scope.busted = function() {
         $http.get('/api/busted')
           .then(function(res) {
-            $scope.busted = res.data.busted;
+            $scope.outcome = res.data;
+            $scope.$broadcast(updateOfficers());
+            $scope.$broadcast(updateFelons());
+
           }, function(err) {
             console.log(err.data);
         });

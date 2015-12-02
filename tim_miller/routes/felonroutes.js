@@ -25,11 +25,11 @@ felonRouter.post('/felons', bodyParser.json(), /*eatAuth,*/ function(req, res) {
   });
 });
 
-felonRouter.put('/felons', bodyParser.json(), /*eatAuth,*/ function(req, res) {
+felonRouter.put('/felons/:id', bodyParser.json(), /*eatAuth,*/ function(req, res) {
 
   var felonData = req.body;
-  delete req.body._id;
-  Felon.update({_id: felonData._id}, felonData, function(err) {
+  delete felonData._id;
+  Felon.update({_id: req.params.id}, felonData, function(err) {
     if(err) return error.default(err, res);
 
     res.send('updated!');
@@ -38,7 +38,7 @@ felonRouter.put('/felons', bodyParser.json(), /*eatAuth,*/ function(req, res) {
 
 felonRouter.delete('/felons/:id', bodyParser.json(), /*eatAuth,*/ function(req, res) {
 
-  Felon.remove({_id: req.params._id}, function(err) {
+  Felon.remove({_id: req.params.id}, function(err) {
     if(err) return error.default(err, res);
 
     res.send('deleted!');

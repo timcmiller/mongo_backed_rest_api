@@ -4,6 +4,7 @@ module.exports = function(app) {
     $scope.errors = [];
     $scope.newOfficer = null;
 
+
     $scope.getAllOfficers = function() {
       $http.get('/api/officers')
         .then(function(res) {
@@ -36,7 +37,8 @@ module.exports = function(app) {
     };
 
     $scope.update = function(officer) {
-      officers.editing = false;
+      officer.tempName = '';
+      officer.editing = false;
       $http.put('/api/officers/' + officer._id, officer)
         .then(function(res) {
           console.log('this officer has a new name');
@@ -44,6 +46,16 @@ module.exports = function(app) {
           $scope.errors.push('could not get officer: ' + officer.name);
           console.log(err.data);
       });
+    };
+
+    $scope.temp = function(officer) {
+      officer.editing = true;
+      officer.tempName = officer.name;
+    };
+
+    $scope.cancel = function(officer) {
+      officer.editing = false;
+      officer.name = officer.tempName;
     };
   }]);
 };
