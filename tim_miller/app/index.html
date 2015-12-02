@@ -49,7 +49,7 @@
 
       <ul id="felonList">
         <li data-ng-repeat="felon in felons">Name: {{felon.name}} In Jail: {{felon.inJail}}
-          <button data-ng-click="remove(felon)" data-ng-if="!felon.editing">Delete This felon</button>
+          <button data-ng-click="remove(felon)" data-ng-if="!felon.editing">Delete This Felon</button>
 
           <form name="felonForm{{felon._id}}" data-ng-submit="update(felon)" data-ng-if="felon.editing">
 
@@ -59,7 +59,7 @@
             <input type="text" id="felonName{{felon._id}}" required data-ng-model="felon.name" placeholder="name">
 
             <button type="submit">Update felon</button>
-            <button data-ng-click="cancel(felon)" data-ng-click="felon.name = felon.temp">Cancel</button>
+            <button data-ng-click="cancel(felon)">Cancel</button>
 
           </form>
           <button data-ng-click="temp(felon)" data-ng-if="!felon.editing">Update</button>

@@ -55,5 +55,6 @@ module.exports = function(app) {
       felon.editing = false;
       felon.name = felon.tempName;
     };
+
   }]);
 };

@@ -5,8 +5,6 @@ module.exports = function(app) {
         $http.get('/api/busted')
           .then(function(res) {
             $scope.outcome = res.data;
-            $scope.$broadcast(updateOfficers());
-            $scope.$broadcast(updateFelons());
 
           }, function(err) {
             console.log(err.data);

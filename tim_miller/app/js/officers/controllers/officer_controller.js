@@ -4,7 +4,6 @@ module.exports = function(app) {
     $scope.errors = [];
     $scope.newOfficer = null;
 
-
     $scope.getAllOfficers = function() {
       $http.get('/api/officers')
         .then(function(res) {
@@ -51,11 +50,13 @@ module.exports = function(app) {
     $scope.temp = function(officer) {
       officer.editing = true;
       officer.tempName = officer.name;
+
     };
 
     $scope.cancel = function(officer) {
       officer.editing = false;
       officer.name = officer.tempName;
     };
+
   }]);
 };
