@@ -14,7 +14,7 @@ module.exports = function(app) {
     };
 
     $scope.create = function(officer) {
-      $http.post('api/officers', officer)
+      $http.post('/api/officers', officer)
         .then(function(res) {
           $scope.officers.push(res.data);
           $scope.newOfficer = null;

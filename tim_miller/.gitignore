@@ -3,4 +3,6 @@
 **/db
 **/tim_miller/db
 build/**
+**/*bundle.js
+
 
