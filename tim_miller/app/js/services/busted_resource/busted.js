@@ -29,14 +29,14 @@ module.exports = function(app) {
 
       resource.remove = function(collection, data, callback) {
         collection.splice(collection.indexOf(data), 1);
-        $http.delete('/api/' + resourceName + data._id)
+        $http.delete('/api/' + resourceName + '/' + data._id)
           .then(handleSuccess(callback), handleFail(callback));
       };
 
       resource.update = function(data, callback) {
         data.tempName = '';
         data.editing = false;
-        $http.put('/api/' + resourceName + data._id)
+        $http.put('/api/' + resourceName + '/' + data._id, data)
           .then(handleSuccess(callback), handleFail(callback));
       };
 
