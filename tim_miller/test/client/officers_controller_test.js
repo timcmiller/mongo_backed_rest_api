@@ -11,7 +11,6 @@ describe('officer controller', function() {
   beforeEach(angular.mock.inject(function($rootScope, $controller) {
     $scope = $rootScope.$new();
     $ControllerConstructor = $controller;
-    console.log('outside beforeEach');
   }));
 
   it('should be able to create a controller', function() {
@@ -21,20 +20,17 @@ describe('officer controller', function() {
     expect(Array.isArray($scope.officers)).toBe(true);
   });
 
-  describe('REST requests', function() {
+  describe('officer controller functions', function() {
 
     beforeEach(angular.mock.inject(function(_$httpBackend_, $rootScope) {
       $httpBackend = _$httpBackend_;
-      $scope = $rootScope.$new();
       $ControllerConstructor('OfficersController', {$scope: $scope});
-      console.log('inside beforeEach');
-
+      $scope.officers = [];
     }));
 
     afterEach(function(){
       $httpBackend.verifyNoOutstandingExpectation();
       $httpBackend.verifyNoOutstandingRequest();
-      console.log('inside afterEach');
     });
 
     it('should make a get response when getAllOfficers() is called', function() {
@@ -56,6 +52,42 @@ describe('officer controller', function() {
       expect($scope.officers[0].name).toBe('a different officer');
       expect($scope.newOfficer).toBe(null);
 
+    });
+
+    it('should be able to respond to a DELETE request when remove() is called', function() {
+      officer = {_id: 1234, name: 'test name'};
+      $scope.officers = [officer];
+      $httpBackend.expectDELETE('/api/officers/' + officer._id).respond(200);
+
+      $scope.remove(officer);
+      $httpBackend.flush();
+      expect($scope.officers.length).toBe(0);
+    });
+
+    it('should be able to respond to a PUT request when update() is called', function() {
+      $scope.officers = [{_id: 1234, name: 'a testy name'}];
+      $httpBackend.expectPUT('/api/officers/' + $scope.officers[0]._id, {_id: 1234, name: 'a testy name', tempName: '', editing: false}).respond(200);
+
+      $scope.update($scope.officers[0]);
+      $httpBackend.flush();
+      expect($scope.officers[0].tempName).toBe('');
+      expect($scope.officers[0].editing).toBe(false);
+    });
+
+    it('should be able to change editing to true by calling temp()', function() {
+      officer = {name: 'a very testy name', tempName: '', editing: false};
+
+      $scope.temp(officer);
+      expect(officer.tempName).toBe('a very testy name');
+      expect(officer.editing).toBe(true);
+    });
+
+    it('should be able to change editing back to false by calling cancel()', function() {
+      officer = {name: '', tempName: 'an even more testy name', editing: true};
+
+      $scope.cancel(officer);
+      expect(officer.name).toBe('an even more testy name');
+      expect(officer.editing).toBe(false);
     });
   });
 });

@@ -1,25 +1,24 @@
 module.exports = function(app) {
-  app.controller('OfficersController', ['$scope', '$http', function($scope, $http) {
+  app.controller('OfficersController', ['$scope', '$http', 'busted', function($scope, $http, busted) {
     $scope.officers = [];
     $scope.errors = [];
     $scope.newOfficer = null;
+    var officerResource = busted('officers');
 
     $scope.getAllOfficers = function() {
-      $http.get('/api/officers')
-        .then(function(res) {
-          $scope.officers = res.data;
-        }, function(err) {
-          console.log(err.data);
+      officerResource.getAll(function(err, data) {
+        if (err) return err;
+
+        $scope.officers = data;
       });
     };
 
     $scope.create = function(officer) {
-      $http.post('/api/officers', officer)
-        .then(function(res) {
-          $scope.officers.push(res.data);
-          $scope.newOfficer = null;
-        }, function(err) {
-          console.log(err.data);
+
+      officerResource.create(officer, function(err, data) {
+        if (err) return err;
+        $scope.officers.push(data);
+        $scope.newOfficer = null;
       });
     };
 
