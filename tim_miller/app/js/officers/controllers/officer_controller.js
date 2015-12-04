@@ -23,38 +23,29 @@ module.exports = function(app) {
     };
 
     $scope.remove = function(officer) {
-      $scope.officers.splice($scope.officers.indexOf(officer), 1);
-      $http.delete('/api/officers/' + officer._id)
-        .then(function(res) {
-          console.log('Done');
-        }, function(err) {
-          console.log(err.data);
-          $scope.errors.push('Could not delete Officer: ' + officer.name);
+      officerResource.remove($scope.officers, officer, function(err, data) {
+        if (err) {
+          $scope.errors.push('Could not delete Officer ' + officer.name);
           $scope.getAllOfficers();
+        }
       });
     };
 
     $scope.update = function(officer) {
-      officer.tempName = '';
-      officer.editing = false;
-      $http.put('/api/officers/' + officer._id, officer)
-        .then(function(res) {
-          console.log('this officer has a new name');
-        }, function(err) {
+      officerResource.update(officer, function(err, data) {
+        if (err) {
           $scope.errors.push('could not get officer: ' + officer.name);
-          console.log(err.data);
+        }
+        console.log('this officer has a new name');
       });
     };
 
     $scope.temp = function(officer) {
-      officer.editing = true;
-      officer.tempName = officer.name;
-
+      officerResource.temp(officer);
     };
 
     $scope.cancel = function(officer) {
-      officer.editing = false;
-      officer.name = officer.tempName;
+      officerResource.cancel(officer);
     };
 
   }]);

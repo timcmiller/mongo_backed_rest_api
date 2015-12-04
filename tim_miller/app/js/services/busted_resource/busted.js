@@ -27,6 +27,29 @@ module.exports = function(app) {
           .then(handleSuccess(callback), handleFail(callback));
       };
 
+      resource.remove = function(collection, data, callback) {
+        collection.splice(collection.indexOf(data), 1);
+        $http.delete('/api/' + resourceName + data._id)
+          .then(handleSuccess(callback), handleFail(callback));
+      };
+
+      resource.update = function(data, callback) {
+        data.tempName = '';
+        data.editing = false;
+        $http.put('/api/' + resourceName + data._id)
+          .then(handleSuccess(callback), handleFail(callback));
+      };
+
+      resource.temp = function(data) {
+        data.editing = true;
+        data.tempName = data.name;
+      };
+
+      resource.cancel = function(data) {
+        data.editing = false;
+        data.name = data.tempName;
+      };
+
       return resource;
     };
   }]);
