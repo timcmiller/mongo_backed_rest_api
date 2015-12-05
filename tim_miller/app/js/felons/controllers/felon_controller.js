@@ -1,59 +1,51 @@
 module.exports = function(app) {
-  app.controller('FelonsController', ['$scope', '$http', function($scope, $http) {
+  app.controller('FelonsController', ['$scope', '$http', 'restFunctions', function($scope, $http, restFunctions) {
     $scope.felons = [];
+    $scope.errors = [];
     $scope.newFelon = null;
+    var felonResource = restFunctions('felons');
 
     $scope.getAllFelons = function() {
-      $http.get('/api/felons')
-        .then(function(res) {
-          $scope.felons = res.data;
-        }, function(err) {
-          console.log(err.data);
+      felonResource.getAll(function(err, data) {
+        if (err) return err;
+
+        $scope.felons = data;
       });
     };
 
     $scope.create = function(felon) {
-      $http.post('api/felons', felon)
-        .then(function(res) {
-          $scope.felons.push(res.data);
-          $scope.newFelon = null;
-        }, function(err) {
-          console.log(err.data);
+
+      felonResource.create(felon, function(err, data) {
+        if (err) return err;
+        $scope.felons.push(data);
+        $scope.newFelon = null;
       });
     };
 
     $scope.remove = function(felon) {
-      $scope.felons.splice($scope.felons.indexOf(felon), 1);
-      $http.delete('/api/felons/' + felon._id)
-        .then(function(res) {
-          console.log('Done');
-        }, function(err) {
-          console.log(err.data);
-          $scope.errors.push('Could not delete felon: ' + felon.name);
-          $scope.getAllfelons();
+      felonResource.remove($scope.felons, felon, function(err, data) {
+        if (err) {
+          $scope.erros.push('Could not delete Felon ' + felon.name);
+          $scope.getAllFelons();
+        }
       });
     };
 
     $scope.update = function(felon) {
-      felon.tempName = '';
-      felon.editing = false;
-      $http.put('/api/felons/' + felon._id, felon)
-        .then(function(res) {
-          console.log('this felon has a new name');
-        }, function(err) {
+      felonResource.update(felon, function(err, data) {
+        if (err) {
           $scope.errors.push('could not get felon: ' + felon.name);
-          console.log(err.data);
+        }
+        console.log('this felon has a new name');
       });
     };
 
     $scope.temp = function(felon) {
-      felon.editing = true;
-      felon.tempName = felon.name;
+      felonResource.temp(felon);
     };
 
     $scope.cancel = function(felon) {
-      felon.editing = false;
-      felon.name = felon.tempName;
+      felonResource.cancel(felon);
     };
 
   }]);

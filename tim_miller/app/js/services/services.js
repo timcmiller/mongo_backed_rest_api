@@ -1,3 +1,3 @@
 module.exports = function(app) {
-  require('./busted_resource/busted.js')(app);
+  require('./rest_resource/rest_functions.js')(app);
 };

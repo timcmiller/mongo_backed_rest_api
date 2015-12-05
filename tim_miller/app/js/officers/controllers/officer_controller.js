@@ -1,9 +1,9 @@
 module.exports = function(app) {
-  app.controller('OfficersController', ['$scope', '$http', 'busted', function($scope, $http, busted) {
+  app.controller('OfficersController', ['$scope', '$http', 'restFunctions', function($scope, $http, restFunctions) {
     $scope.officers = [];
     $scope.errors = [];
     $scope.newOfficer = null;
-    var officerResource = busted('officers');
+    var officerResource = restFunctions('officers');
 
     $scope.getAllOfficers = function() {
       officerResource.getAll(function(err, data) {

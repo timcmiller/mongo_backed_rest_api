@@ -13,7 +13,7 @@ var handleFail = function(callback) {
 
 module.exports = function(app) {
 
-  app.factory('busted', ['$http', function($http) {
+  app.factory('restFunctions', ['$http', function($http) {
 
     return function(resourceName) {
       var resource = {};
