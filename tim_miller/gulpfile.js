@@ -27,8 +27,10 @@ gulp.task('static:dev', function() {
 gulp.task('css:dev', function() {
   return gulp.src([
     'app/css/base.css',
+    'app/css/skeleton.css',
+    'app/css/state.css',
     'app/css/layout.css',
-    'app/css/module.css'
+    'app/css/module.css',
     ])
     .pipe(concatCss('styles.min.css'))
     .pipe(minifyCss())
