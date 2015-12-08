@@ -1,0 +1,20 @@
+@import "variables";
+
+body {
+  font-family: $primary-font;
+  background-color: $primary-color;
+}
+
+.heading {
+  background-color: $secondary-color;
+  font-family: $secondary-font;
+}
+
+.resource-heading {
+  background-color: $tertiary-color;
+  font-family: $secondary-font;
+  color: $primary-color;
+}
+
+
+
