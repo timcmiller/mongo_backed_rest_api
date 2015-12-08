@@ -1,44 +1,17 @@
+@import "variables";
+
+body {
+  font-family: $primary-font;
+  background-color: $primary-color;
+}
+
 .heading {
-  margin: 15ems;
+  background-color: $secondary-color;
+  font-family: $secondary-font;
 }
 
-.resource {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid;
-  margin: 10px;
-  button {
-    font-size: 10px;
-  }
+.resource-heading {
+  background-color: $tertiary-color;
+  font-family: $secondary-font;
+  color: $primary-color;
 }
-
-.outer-flex {
-  display: flex;
-  flex-direction: row;
-}
-
-li{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.list-content{
-  justify-content: center;
-  width: 100%;
-}
-
-.input-form{
-  dispaly: flex;
-  flex-wrap: wrap;
-  h2 {
-    width: 100%;
-  }
-  label{
-    width: 30%;
-  }
-  input {
-    width: 70%;
-  }
-}
-

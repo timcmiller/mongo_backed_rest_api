@@ -1,0 +1,44 @@
+.heading {
+  margin: 15ems;
+}
+
+.resource {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  margin: 10px;
+  button {
+    font-size: 10px;
+  }
+}
+
+.outer-flex {
+  display: flex;
+  flex-direction: row;
+}
+
+li{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.list-content{
+  justify-content: center;
+  width: 100%;
+}
+
+.input-form{
+  dispaly: flex;
+  flex-wrap: wrap;
+  h2 {
+    width: 100%;
+  }
+  label{
+    width: 30%;
+  }
+  input {
+    width: 70%;
+  }
+}
+
