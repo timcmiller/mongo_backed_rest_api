@@ -68,4 +68,4 @@ gulp.task('webpack:test', function() {
 
 gulp.task('styles', ['sass:dev', 'css:dev']);
 gulp.task('build:dev', ['webpack:dev', 'static:dev', 'css:dev']);
-gulp.task('default', ['build:dev', 'jshint', 'test']);
+gulp.task('default', ['build:dev', 'jshint', 'test', 'styles']);
