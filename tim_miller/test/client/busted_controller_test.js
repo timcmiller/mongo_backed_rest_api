@@ -1,4 +1,4 @@
-require(__dirname + '/../../app/js/entry.js');
+require(__dirname + '/../../app/js/entry');
 require('angular-mocks');
 
 describe('busted controller', function() {
