@@ -3,10 +3,10 @@
 }
 
 .btn-large {
+  @include btn-maker(red);
   justify-content: center;
   margin: auto;
   border-radius: em(25);
-  background-color: red;
   text: em(20);
   width: em(200);
   height: em(50);
@@ -20,6 +20,7 @@
   margin-left: auto;
   margin-right: auto;
   button {
+    @include btn-maker();
     font-size: em(10);
   }
 }
