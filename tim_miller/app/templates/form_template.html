@@ -1,0 +1,12 @@
+<form class="input-form" name="{{formName}}" data-ng-submit="save({name: resource})">
+
+  <h2 class="resource-heading">{{headingText}}</h2>
+
+  <label for="resourceName">Name:</label>
+  <input type="text" id="resourceName" required data-ng-model="resource.name" placeholder="name">
+
+  <button class="btn" type="submit" data-ng-disabled="resourceName.$invalid">{{buttonText}}</button>
+
+  <ng-transclude></ng-transclude>
+
+</form>

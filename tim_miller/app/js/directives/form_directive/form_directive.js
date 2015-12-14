@@ -1,15 +1,15 @@
 module.exports = function(app) {
-  app.directive('officerFormDirective', function() {
+  app.directive('formDirective', function() {
     return {
       restrict: 'AC',
       replace: true,
-      templateUrl: 'templates/officer_form_template.html',
+      templateUrl: 'templates/form_template.html',
       transclude: true,
       scope: {
         buttonText: '@',
         headingText: '@',
         formName: '@',
-        officer: '=',
+        resource: '=',
         save: '&'
       }
     };
