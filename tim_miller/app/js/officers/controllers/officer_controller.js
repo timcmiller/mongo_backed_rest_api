@@ -1,9 +1,13 @@
 module.exports = function(app) {
-  app.controller('OfficersController', ['$scope', '$http', 'restFunctions', function($scope, $http, restFunctions) {
+  app.controller('OfficersController', ['$scope', '$http', 'restFunctions', '$location', function($scope, $http, restFunctions, $location) {
     $scope.officers = [];
     $scope.errors = [];
     $scope.newOfficer = null;
     var officerResource = restFunctions('officers');
+
+    if (!scope.token) {
+      $location('/signup');
+    }
 
     $scope.getAllOfficers = function() {
       officerResource.getAll(function(err, data) {

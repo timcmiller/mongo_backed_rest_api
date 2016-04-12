@@ -15,7 +15,7 @@ felonRouter.get('/felons', function(req, res) {
   });
 });
 
-felonRouter.post('/felons', bodyParser.json(), /*eatAuth,*/ function(req, res) {
+felonRouter.post('/felons', bodyParser.json(), eatAuth, function(req, res) {
   var newFelon = new Felon(req.body);
 
   newFelon.save(function(err, data) {
@@ -25,7 +25,7 @@ felonRouter.post('/felons', bodyParser.json(), /*eatAuth,*/ function(req, res) {
   });
 });
 
-felonRouter.put('/felons/:id', bodyParser.json(), /*eatAuth,*/ function(req, res) {
+felonRouter.put('/felons/:id', bodyParser.json(), eatAuth, function(req, res) {
 
   var felonData = req.body;
   delete felonData._id;
@@ -36,7 +36,7 @@ felonRouter.put('/felons/:id', bodyParser.json(), /*eatAuth,*/ function(req, res
   });
 });
 
-felonRouter.delete('/felons/:id', bodyParser.json(), /*eatAuth,*/ function(req, res) {
+felonRouter.delete('/felons/:id', bodyParser.json(), eatAuth, function(req, res) {
 
   Felon.remove({_id: req.params.id}, function(err) {
     if(err) return error.default(err, res);

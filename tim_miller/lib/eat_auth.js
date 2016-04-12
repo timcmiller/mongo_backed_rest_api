@@ -2,7 +2,9 @@ var eat = require('eat');
 var User = require(__dirname + '/../models/user');
 
 module.exports = exports = function(req, res, next) {
-  var token = req.header.token || (req.body)? req.body.token : '';
+  var token = req.header.token;
+  var bodyToken = (req.body) ? req.body.token : '';
+  token = token || bodyToken;
 
   if (!token) {
     console.log('You must haz a token');

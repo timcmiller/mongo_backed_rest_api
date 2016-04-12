@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var User = require(__dirname + '/../models/user.js');
 var basicHttp = require(__dirname + '/../lib/basic_http.js');
 var error = require(__dirname + '/../lib/errorHandler.js');
+var eatAuth = require(__dirname + '/../lib/eat_auth.js');
 
 var authRouter = module.exports = exports = express.Router();
 
@@ -51,5 +52,9 @@ authRouter.post('/signup', bodyParser.json(), function(req, res, next) {
       });
     });
   });
+});
+
+authRouter.get('/users', eatAuth, function(req, res) {
+  res.json({username: req.user.username});
 });
 

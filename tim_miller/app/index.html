@@ -8,94 +8,99 @@
 </head>
 
 <body data-ng-app="OfficerAndFelonApp">
-  <h1 class="heading">Bad Boys Bad Boys</h1>
-  <main data-ng-controller="BustedController">
-    <button class="btn btn-reverse" data-ng-click="busted()">BUSTED!</button>
-    <p>{{outcome}}</p>
-    <section class="outer-flex">
+  <div data-ng-controller="AuthController" data-ng-init="getUser()">
+    <h1 class="heading">Bad Boys Bad Boys</h1>
+    <main data-ng-controller="BustedController">
+      <button class="btn btn-reverse" data-ng-click="busted()">BUSTED!</button>
+      <p>{{outcome}}</p>
+      <section class="outer-flex">
 
 
-      <main class="resource" data-ng-controller="OfficersController" data-ng-init="getAllOfficers()">
-        <div data-form-directive
-          data-button-text="Create New Officer"
-          data-form-name="newOfficerForm"
-          data-heading-text="New Officer:"
-          data-resource="officer"
-          data-save="create(officer)">
-        </div>
+        <main class="resource" data-ng-controller="OfficersController" data-ng-init="getAllOfficers()">
+          <div data-form-directive
+            data-button-text="Create New Officer"
+            data-form-name="newOfficerForm"
+            data-heading-text="New Officer:"
+            data-resource="officer"
+            data-save="create(officer)">
+          </div>
 
-        <ul class="list" id="officerList">
-          <li data-ng-repeat="officer in officers">
+          <ul class="list" id="officerList">
+            <li data-ng-repeat="officer in officers">
 
-            <div data-list-directive
-              data-name="officer.name"
-              data-attribute-title="In Jail"
-              data-attribute="officer.inJail">
-            </div>
-
-            <span>
-
-              <div data-form-directive
-                data-ng-if="officer.editing"
-                data-button-text="Update"
-                data-form-name="edit{{officer._id}}"
-                data-heading-text="Edit Officer:"
-                data-resource="officer"
-                data-save="update(officer)">
-                <button class="btn" data-ng-click="cancel(officer)">Cancel</button>
+              <div data-list-directive
+                data-name="officer.name"
+                data-attribute-title="In Jail"
+                data-attribute="officer.inJail">
               </div>
 
-              <button class="btn" data-ng-click="remove(officer)" data-ng-if="!officer.editing">Delete This Officer</button>
+              <span>
 
-              <button class="btn" data-ng-click="temp(officer)" data-ng-if="!officer.editing">Update</button>
+                <div data-form-directive
+                  data-ng-if="officer.editing"
+                  data-button-text="Update"
+                  data-form-name="edit{{officer._id}}"
+                  data-heading-text="Edit Officer:"
+                  data-resource="officer"
+                  data-save="update(officer)">
+                  <button class="btn" data-ng-click="cancel(officer)">Cancel</button>
+                </div>
 
-            </span>
-          </li>
-        </ul>
-      </main>
+                <button class="btn" data-ng-click="remove(officer)" data-ng-if="!officer.editing">Delete This Officer</button>
 
-      <main class="resource" data-ng-controller="FelonsController" data-ng-init="getAllFelons()">
+                <button class="btn" data-ng-click="temp(officer)" data-ng-if="!officer.editing">Update</button>
 
-        <div data-form-directive
-          data-button-text="Create New Felon"
-          data-form-name="newFelonForm"
-          data-heading-text="New Felon:"
-          data-resource="felon"
-          data-save="create(felon)">
-        </div>
+              </span>
+            </li>
+          </ul>
+        </main>
 
-        <ul class="list" id="felonList">
-          <li data-ng-repeat="felon in felons">
+        <main class="resource" data-ng-controller="FelonsController" data-ng-init="getAllFelons()">
 
-            <div data-list-directive
-              data-name="felon.name"
-              data-attribute-title="In Jail"
-              data-attribute="felon.inJail">
-            </div>
+          <div data-form-directive
+            data-button-text="Create New Felon"
+            data-form-name="newFelonForm"
+            data-heading-text="New Felon:"
+            data-resource="felon"
+            data-save="create(felon)">
+          </div>
 
-            <span>
+          <ul class="list" id="felonList">
+            <li data-ng-repeat="felon in felons">
 
-              <div data-form-directive
-                data-ng-if="felon.editing"
-                data-button-text="Update"
-                data-form-name="edit{{felon._id}}"
-                data-heading-text="Edit Felon:"
-                data-resource="felon"
-                data-save="update(felon)">
-                <button class="btn" data-ng-click="cancel(felon)">Cancel</button>
+              <div data-list-directive
+                data-name="felon.name"
+                data-attribute-title="In Jail"
+                data-attribute="felon.inJail">
               </div>
 
-              <button class="btn" data-ng-click="remove(felon)" data-ng-if="!felon.editing">Delete This Felon</button>
+              <span>
 
-              <button class="btn" data-ng-click="temp(felon)" data-ng-if="!felon.editing">Update</button>
+                <div data-form-directive
+                  data-ng-if="felon.editing"
+                  data-button-text="Update"
+                  data-form-name="edit{{felon._id}}"
+                  data-heading-text="Edit Felon:"
+                  data-resource="felon"
+                  data-save="update(felon)">
+                  <button class="btn" data-ng-click="cancel(felon)">Cancel</button>
+                </div>
 
-            </span>
-          </li>
-        </ul>
+                <button class="btn" data-ng-click="remove(felon)" data-ng-if="!felon.editing">Delete This Felon</button>
 
-      </main>
-    </section>
-  </main>
+                <button class="btn" data-ng-click="temp(felon)" data-ng-if="!felon.editing">Update</button>
+
+              </span>
+            </li>
+          </ul>
+
+        </main>
+      </section>
+    </main>
+    <a data-ng-if="currentUser" href data-ng-click="logOut()">
+    Log Out of {{currentUser}}
+    </a>
+  </div>
   <script src="bundle.js"></script>
 </body>
 </html>
